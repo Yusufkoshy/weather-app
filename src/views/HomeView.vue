@@ -1,13 +1,15 @@
 <template>
   <main class="container text-white">
     <div class="pt-4 mb-8 relative">
-      <input
-        @input="getSearchResults"
-        type="text"
-        v-model="searchQuery"
-        placeholder=" Search for a city or state"
-        class="py-2 px-1 w-full bg-transparent border-b focus:border-sky-300 focus:outline-none focus:shadow-[0px_1px_0_0_#004e71]"
-      />
+      <form @submit.prevent="getSearchResults" action="#">
+        <input
+          @input="getSearchResults"
+          type="text"
+          v-model="searchQuery"
+          placeholder=" Search for a city or state"
+          class="py-2 px-1 w-full bg-transparent border-b focus:border-sky-300 focus:outline-none focus:shadow-[0px_1px_0_0_#004e71]"
+        />
+      </form>
       <ul
         v-if="mapBoxSearchResults"
         class="bg-sky-700 text-white absolute w-full shadow-md py-2 px-1 top-[60px]"
