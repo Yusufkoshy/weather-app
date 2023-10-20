@@ -15,7 +15,10 @@
           class="material-icons hover:text-sky-300 duration-150 cursor-pointer"
           >info</i
         >
-        <i class="material-icons hover:text-sky-300 duration-150 cursor-pointer"
+        <i
+          class="material-icons hover:text-sky-300 duration-150 cursor-pointer"
+          @click="addCity"
+          v-if="route.query.preview"
           >add</i
         >
       </div>
@@ -54,7 +57,36 @@
 </template>
 <script setup>
 import { ref } from "vue";
+import { uid } from "uid";
 import BaseModal from "./base-modal.vue";
+import { RouterLink, useRoute, useRouter } from "vue-router";
+
+const route = useRoute();
+const router = useRouter();
+
+const addedCities = ref([]);
+const addCity = () => {
+  if (localStorage.getItem("addedCities")) {
+    addedCities.value = JSON.parse(localStorage.getItem("savedCities"));
+  }
+
+  const location = {
+    id: uid(),
+    state: route.params.state,
+    city: route.params.city,
+    coords: {
+      lat: route.query.lat,
+      lng: route.query.lng,
+    },
+  };
+
+  addedCities.value.push(location);
+  localStorage.setItem("addedCities", JSON.stringify(addedCities.value));
+
+  let query = Object.assign({}, route.query);
+  delete query.preview;
+  router.replace({ query });
+};
 
 const modalActive = ref(null);
 const toggleModal = () => {
