@@ -10,17 +10,19 @@
         </div>
       </router-link>
       <div class="felx gap-3 ml-auto">
-        <i
-          @click="toggleModal"
-          class="material-icons hover:text-sky-300 duration-150 cursor-pointer"
-          >info</i
-        >
-        <i
-          class="material-icons hover:text-sky-300 duration-150 cursor-pointer"
-          @click="addCity"
-          v-if="route.query.preview"
-          >add</i
-        >
+        <div class="flex gap-3">
+          <i
+            @click="toggleModal"
+            class="material-icons hover:text-sky-300 duration-150 cursor-pointer"
+            >info</i
+          >
+          <i
+            class="material-icons hover:text-sky-300 duration-150 cursor-pointer"
+            @click="addCity"
+            v-if="route.query.preview"
+            >add</i
+          >
+        </div>
       </div>
       <base-modal :modal-active="modalActive" @close-modal="toggleModal">
         <div class="text-black">
@@ -66,11 +68,11 @@ const router = useRouter();
 
 const addedCities = ref([]);
 const addCity = () => {
-  if (localStorage.getItem("addedCities")) {
+  if (localStorage.getItem("savedCities")) {
     addedCities.value = JSON.parse(localStorage.getItem("savedCities"));
   }
 
-  const location = {
+  const locationObj = {
     id: uid(),
     state: route.params.state,
     city: route.params.city,
@@ -80,8 +82,8 @@ const addCity = () => {
     },
   };
 
-  addedCities.value.push(location);
-  localStorage.setItem("addedCities", JSON.stringify(addedCities.value));
+  addedCities.value.push(locationObj);
+  localStorage.setItem("savedCities", JSON.stringify(addedCities.value));
 
   let query = Object.assign({}, route.query);
   delete query.preview;
