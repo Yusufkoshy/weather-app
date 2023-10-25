@@ -3,7 +3,7 @@
     <nav
       class="container flex flex-col sm:flex-row items-center gap-4 text-white py-6"
     >
-      <router-link :to="{ home }">
+      <router-link :to="{ name: 'home' }">
         <div class="flex items-center gap-3">
           <i class="material-icons">sunny</i>
           <p class="text-2xl">The local weather</p>
@@ -24,7 +24,7 @@
           >
         </div>
       </div>
-      <base-modal :modal-active="modalActive" @close-modal="toggleModal">
+      <base-modal :modalActive="modalActive" @close-modal="toggleModal">
         <div class="text-black">
           <h1 class="text-2xl mb-1">About:</h1>
           <p class="mb-4">
@@ -87,6 +87,7 @@ const addCity = () => {
 
   let query = Object.assign({}, route.query);
   delete query.preview;
+  query.id = locationObj.id;
   router.replace({ query });
 };
 
