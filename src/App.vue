@@ -6,6 +6,21 @@
         <component :is="Component" />
       </Transition>
     </router-view>
+    <footer
+      v-motion
+      :initial="{
+        opacity: 0,
+        y: 200,
+      }"
+      :visible="{
+        opacity: 1,
+        y: 0,
+        delay: 900,
+      }"
+      class="w-full text-center my-4 text-stone-400"
+    >
+      <p>Copyright © 2023 Yusuf - Development.</p>
+    </footer>
   </div>
 </template>
 
